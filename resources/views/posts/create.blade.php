@@ -3,7 +3,7 @@
 @section('content')
   		
   		<div class="col-md-8 blog-main">
-  			<h2>Publish a Post</h2>
+  			<h2>Publish a Posts</h2>
 
   			<form method="POST" action="/posts">
 
