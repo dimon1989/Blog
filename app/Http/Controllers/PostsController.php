@@ -7,6 +7,14 @@ use App\Post;
 
 class PostsController extends Controller
 {
+   
+    public function __construct() {
+
+            $this->middleware('auth')->except(['index', 'show']);
+        }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -57,12 +65,19 @@ class PostsController extends Controller
     
 
         II możliowść dodania do bazy
-    */
+    
         Post::create([
             'title' => $request->title,
-            'body' => $request->body
+            'body' => $request->body,
+            'user_id' => auth()->id()
             ]);
 
+        III możliowść dodania do bazy
+    */
+        auth()->user()->publish(
+            new Post(request(['title', 'body']))
+        );
+    
         return redirect('/');
     }
 
