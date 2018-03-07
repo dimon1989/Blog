@@ -22,9 +22,20 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->get();
+        $posts = Post::latest();
 
-        return View('posts.index', compact('posts'));
+        if (!empty(request(['month', 'year']))) {
+            $posts->filter(request(['month', 'year']));
+        }
+
+        $posts = $posts->get();
+
+
+        $archives = Post::archive()
+            ->get()
+             ->toArray();
+
+        return View('posts.index', compact('posts','archives'));
     }
 
     /**
